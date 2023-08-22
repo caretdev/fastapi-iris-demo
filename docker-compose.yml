@@ -1,0 +1,25 @@
+version: "3"
+services:
+  iris:
+    image: intersystemsdc/iris-community
+    ports:
+      - 1972:1972
+    environment:
+      - IRISUSERNAME=demo
+      - IRISPASSWORD=demo
+    healthcheck:
+      test: /irisHealth.sh
+      interval: 5s
+  app:
+    build: .
+    ports:
+      - 8000:8000
+    environment:
+      - DATABASE_URL=iris://demo:demo@iris:1972/USER
+    volumes:
+      - ./:/usr/src/app
+    depends_on:
+      iris:
+        condition: service_healthy
+    command:
+      - --reload

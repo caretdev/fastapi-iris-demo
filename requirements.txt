@@ -1,0 +1,5 @@
+fastapi==0.101.1
+alembic==1.11.1
+uvicorn==0.22.0
+sqlalchemy==2.0.20
+sqlalchemy-iris==0.10.5
